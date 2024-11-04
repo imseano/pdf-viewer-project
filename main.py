@@ -9,5 +9,9 @@ def main():
 
     print(pageObj.extract_text());
 
+    im = pageObj.images[0]
+    
+    im.image.show()
+
 
 main()
