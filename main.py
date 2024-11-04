@@ -1,17 +1,18 @@
 from pypdf import PdfReader
+from pdf2image import convert_from_path
 
 def main():
     print('hello world')
-    reader = PdfReader('examples/Example-1.pdf')
+    pdfPath = 'examples/Example-1.pdf'
+    reader = PdfReader(pdfPath)
     print(reader.get_num_pages())
 
     pageObj = reader.get_page(0);
 
     print(pageObj.extract_text());
 
-    im = pageObj.images[0]
-    
-    im.image.show()
+    page_image = convert_from_path(pdfPath)
+    page_image[0].show()
 
 
 main()
