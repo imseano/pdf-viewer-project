@@ -9,7 +9,9 @@ def main():
     test = PdfViewer(pdfPath)
     print(test.pdf.get_num_pages())
 
-    test.getPDFImage(0).show()
+    print("Which page should be displayed? (Start at 0): ")
+    index = input()
+    test.getPDFImage(index).show()
 
         
 main()
