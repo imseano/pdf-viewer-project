@@ -10,7 +10,7 @@ def main():
     print(test.pdf.get_num_pages())
 
     print("Which page should be displayed? (Start at 0): ")
-    index = input()
+    index = int(input())
     test.getPDFImage(index).show()
 
         
