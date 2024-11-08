@@ -1,10 +1,17 @@
 from tkinter import *
 from tkinter import filedialog
 from viewer import PdfViewer
-import os
+from PIL import Image, ImageTk
 
+# Global variables used by the PdfGUI class.
+current_page = 1
+total_pages = 0
+zoom_level = 1.0
+pdf_file = None
+images = None
 class PdfGUI:
     def __init__(self, master):
+        
         # Master window
         self.master = master
         self.master.title('Basic PDF Viewer')
@@ -42,12 +49,23 @@ class PdfGUI:
         ### TO-DO: Add the appropriate commands to the task bar buttons. ###
         previous_button = Button(taskbar, text = "<<", command = None)
         previous_button.pack(side=LEFT, padx=2, pady=2)
+        
         next_button = Button(taskbar, text = ">>", command = None)
         next_button.pack(side=LEFT, padx=2, pady=2)
+    
         zoom_in_button = Button(taskbar, text = "+", command = None)
-        zoom_in_button.pack(side=LEFT, padx=2, pady=2)
+        zoom_in_button.pack(side=RIGHT, padx=2, pady=2)  
+        
         zoom_out_button = Button(taskbar, text = "-", command = None)
-        zoom_out_button.pack(side=LEFT, padx=2, pady=2)
+        zoom_out_button.pack(side=RIGHT, padx=2, pady=2)  
+        
+        page_label = Label(taskbar, text=f"Page {current_page} of {total_pages}")
+        page_label.pack(side=LEFT, padx=2, pady=2)
+        
+        zoom_label = Label(taskbar, text=f"Zoom: {int(zoom_level * 100)}%")
+        zoom_label.pack(side=RIGHT, padx=2, pady=2)
+        
+        # Comment: More task buttons can be added later.
         ### END OF TO-DO. ###
     
     ### TO-DO: Add other necessary functions needed for each menu bar command or task bar button we need. ###
