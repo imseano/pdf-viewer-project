@@ -67,6 +67,10 @@ class PdfGUI:
         
         # Comment: More task buttons can be added later.
         ### END OF TO-DO. ###
+        
+        # Canvas creation to display PDF document pages.
+        canvas = Canvas(self.master, bg="white")
+        canvas.pack(side=LEFT, fill=BOTH, expand=True)
     
     ### TO-DO: Add other necessary functions needed for each menu bar command or task bar button we need. ###
     # Note: Place holder functions have already been created. You just need to add the code that will get the job done.
