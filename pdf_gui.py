@@ -26,7 +26,7 @@ class PdfGUI:
         self.menu_bar.add_cascade(label = 'File', menu = self.file_menu)
         
         ### TO-DO: Add command for the Open File command in the file menu. ###
-        file_menu.add_command(label = 'Open File', command = None)
+        self.file_menu.add_command(label = 'Open File', command = None)
         ### END OF TO-DO. ###
         self.file_menu.add_separator()
         self.file_menu.add_command(label = 'Exit', command = self.master.destroy)
