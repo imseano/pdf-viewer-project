@@ -92,7 +92,8 @@ class PdfGUI:
             # display_page(images[current_page - 1])
             ### END OF TO-DO. ###
             
-    # Displays a single page to the GUI. Updates based on whether the previous page or next_page button is used.
+    # Displays a single page to the GUI.
+    # Updates page label and zoom based on whether the zoom buttons and previous page or next_page button is used.
     def display_page():
         pass
     
