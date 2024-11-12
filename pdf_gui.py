@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 from viewer import PdfViewer
 from PIL import Image, ImageTk
+import os
 
 # Global variables used by the PdfGUI class.
 current_page = 1
@@ -25,7 +26,7 @@ class PdfGUI:
         self.menu_bar.add_cascade(label = 'File', menu = self.file_menu)
         
         ### TO-DO: Add command for the Open File command in the file menu. ###
-        self.file_menu.add_command(label = 'Open File', command = None)
+        file_menu.add_command(label = 'Open File', command = None)
         ### END OF TO-DO. ###
         self.file_menu.add_separator()
         self.file_menu.add_command(label = 'Exit', command = self.master.destroy)
@@ -74,9 +75,24 @@ class PdfGUI:
     
     ### TO-DO: Add other necessary functions needed for each menu bar command or task bar button we need. ###
     # Note: Place holder functions have already been created. You just need to add the code that will get the job done.
+    # Open files with a prompt that allows the user to select the PDF file they wish to open.
     def open_file():
-        pass
-    
+        # Redundant code that helps ensure that the variables used here are global.
+        global current_page, total_pages, pdf_file, images
+        filepath = filedialog.askopenfilename(initialdir=os.getcwd(), title="Select a PDF file",
+                                              filetypes=(("PDF files", "*.pdf"), ("All Files", "*.*")))
+        
+        if filepath:
+            pdf_file = PdfViewer(filepath)
+            total_pages = pdf_file.num_pages
+            images = pdf_file.page_images
+            current_page = 1
+            ### TO-DO: Revert the comment below to code after implementing the display_page function. ###
+            ## Comment: The code below gives a hint on what needs to be included as arguments for the display_page function.
+            # display_page(images[current_page - 1])
+            ### END OF TO-DO. ###
+            
+    # Displays a single page to the GUI. Updates based on whether the previous page or next_page button is used.
     def display_page():
         pass
     
@@ -94,10 +110,6 @@ class PdfGUI:
     
     def zoom_out():
         pass
-    
-    def update_page_label(self):
-        self.page_label.config(text=f"Page {current_page} of {total_pages}")
-        self.zoom_label.config(text=f"Zoom: {int(zoom_level * 100)}%")
     ### END OF TO-DO. ###
     
 # Root window and mainloop to keep the window open.
