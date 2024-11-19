@@ -111,6 +111,10 @@ class PdfGUI:
     
     def zoom_out():
         pass
+    
+    def update_page_label(self):
+        self.page_label.config(text=f"Page {current_page} of {total_pages}")
+        self.zoom_label.config(text=f"Zoom: {int(zoom_level * 100)}%")
     ### END OF TO-DO. ###
     
 # Root window and mainloop to keep the window open.
