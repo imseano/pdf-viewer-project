@@ -17,7 +17,7 @@ class PdfGUI:
         self.master = master
         self.master.title('Basic PDF Viewer')
         self.master.geometry('854x480')
-        
+
         # Menu bar creation
         self.menu_bar = Menu(self.master)
         
@@ -68,21 +68,21 @@ class PdfGUI:
         
         # Comment: More task buttons can be added later.
         ### END OF TO-DO. ###
+ 
+       
         
         # Canvas creation to display PDF document pages.
-        self.canvas = Canvas(self.master, bg="white")
+        self.canvas = Canvas(self.master, width=854, height=480, bg="white")
         self.canvas.pack(side=LEFT, fill=BOTH, expand=True)
+        self.display_page(0)
 
-        # PDF image
-        pdf_file = PdfViewer("examples/Example-1.pdf")
-        image = pdf_file.getPDFImage(0)
-        image = image.resize((100,100))
-        test = ImageTk.PhotoImage(image)
-        self.canvas.create_image(10, 10, image = test, anchor = NW)
-        pdf_file.getPDFImage(0).show()
 
-        # Position image
 
+    def load_image(self, image):
+        image = image.resize((400, 400))  # Resize if necessary
+        self.page_image = ImageTk.PhotoImage(image)
+
+        self.canvas.create_image(427, 240, image=self.page_image, anchor = CENTER)
     
     ### TO-DO: Add other necessary functions needed for each menu bar command or task bar button we need. ###
     # Note: Place holder functions have already been created. You just need to add the code that will get the job done.
@@ -105,8 +105,10 @@ class PdfGUI:
             
     # Displays a single page to the GUI.
     # Updates page label and zoom based on whether the zoom buttons and previous page or next_page button is used.
-    def display_page():
-        pass
+    def display_page(self, page_number):
+        pdf_file = PdfViewer("examples/Example-1.pdf")
+        image = pdf_file.getPDFImage(page_number)
+        self.load_image(image)
     
     def previous_page():
         pass
@@ -127,8 +129,10 @@ class PdfGUI:
         self.page_label.config(text=f"Page {current_page} of {total_pages}")
         self.zoom_label.config(text=f"Zoom: {int(zoom_level * 100)}%")
     ### END OF TO-DO. ###
-    
+
+
 # Root window and mainloop to keep the window open.
-app_window = Tk()
-application = PdfGUI(app_window)
-app_window.mainloop()
+if __name__ == "__main__":
+    app_window = Tk()
+    application = PdfGUI(app_window)
+    app_window.mainloop()
