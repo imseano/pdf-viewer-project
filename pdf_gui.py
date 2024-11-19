@@ -71,6 +71,17 @@ class PdfGUI:
         # Canvas creation to display PDF document pages.
         self.canvas = Canvas(self.master, bg="white")
         self.canvas.pack(side=LEFT, fill=BOTH, expand=True)
+
+        # PDF image
+        pdf_file = PdfViewer("examples/Example-1.pdf")
+        image = pdf_file.getPDFImage(0)
+        image = image.resize((100,100))
+        test = ImageTk.PhotoImage(image)
+        self.canvas.create_image(10, 10, image = test, anchor = NW)
+        pdf_file.getPDFImage(0).show()
+
+        # Position image
+
     
     ### TO-DO: Add other necessary functions needed for each menu bar command or task bar button we need. ###
     # Note: Place holder functions have already been created. You just need to add the code that will get the job done.
