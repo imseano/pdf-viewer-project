@@ -8,7 +8,7 @@ import os
 current_page = 1
 total_pages = 0
 zoom_level = 1.0
-pdf_file = None
+pdf_file = PdfViewer("examples/Example-1.pdf")
 images = None
 class PdfGUI:
     def __init__(self, master):
@@ -26,7 +26,7 @@ class PdfGUI:
         self.menu_bar.add_cascade(label = 'File', menu = self.file_menu)
         
         ### TO-DO: Add command for the Open File command in the file menu. ###
-        self.file_menu.add_command(label = 'Open File', command = PdfGUI.open_file)
+        self.file_menu.add_command(label = 'Open File', command = self.open_file)
         ### END OF TO-DO. ###
         self.file_menu.add_separator()
         self.file_menu.add_command(label = 'Exit', command = self.master.destroy)
@@ -68,18 +68,17 @@ class PdfGUI:
         
         # Comment: More task buttons can be added later.
         ### END OF TO-DO. ###
- 
        
         
         # Canvas creation to display PDF document pages.
         self.canvas = Canvas(self.master, width=854, height=480, bg="white")
         self.canvas.pack(side=LEFT, fill=BOTH, expand=True)
-        self.display_page(0)
+        self.display_page(0, pdf_file)
 
 
 
     def load_image(self, image):
-        image = image.resize((400, 400))  # Resize if necessary
+        image.thumbnail((400, 400))  # Resize if necessary
         self.page_image = ImageTk.PhotoImage(image)
 
         self.canvas.create_image(427, 240, image=self.page_image, anchor = CENTER)
@@ -87,7 +86,7 @@ class PdfGUI:
     ### TO-DO: Add other necessary functions needed for each menu bar command or task bar button we need. ###
     # Note: Place holder functions have already been created. You just need to add the code that will get the job done.
     # Open files with a prompt that allows the user to select the PDF file they wish to open.
-    def open_file():
+    def open_file(self):
         # Redundant code that helps ensure that the variables used here are global.
         global current_page, total_pages, pdf_file, images
         filepath = filedialog.askopenfilename(initialdir=os.getcwd(), title="Select a PDF file",
@@ -98,15 +97,11 @@ class PdfGUI:
             total_pages = pdf_file.num_pages
             images = pdf_file.page_images
             current_page = 1
-            ### TO-DO: Revert the comment below to code after implementing the display_page function. ###
-            ## Comment: The code below gives a hint on what needs to be included as arguments for the display_page function.
-            # display_page(images[current_page - 1])
-            ### END OF TO-DO. ###
-            
+            self.display_page(current_page - 1, pdf_file)
+
     # Displays a single page to the GUI.
     # Updates page label and zoom based on whether the zoom buttons and previous page or next_page button is used.
-    def display_page(self, page_number):
-        pdf_file = PdfViewer("examples/Example-1.pdf")
+    def display_page(self, page_number, pdf_file):
         image = pdf_file.getPDFImage(page_number)
         self.load_image(image)
     
