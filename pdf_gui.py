@@ -68,7 +68,6 @@ class PdfGUI:
         
         # Comment: More task buttons can be added later.
         ### END OF TO-DO. ###
-       
         
         # Canvas creation to display PDF document pages.
         self.canvas = Canvas(self.master, width=854, height=480, bg="white")
@@ -77,8 +76,10 @@ class PdfGUI:
 
 
 
+
     def load_image(self, image):
         image.thumbnail((400, 400))  # Resize if necessary
+
         self.page_image = ImageTk.PhotoImage(image)
 
         self.canvas.create_image(427, 240, image=self.page_image, anchor = CENTER)
