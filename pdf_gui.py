@@ -5,10 +5,10 @@ from PIL import Image, ImageTk
 import os
 
 # Global variables used by the PdfGUI class.
-current_page = 1
-total_pages = 0
-zoom_level = 1.0
 pdf_file = PdfViewer("examples/Example-1.pdf")
+current_page = 1
+total_pages = pdf_file.num_pages
+zoom_level = 1.0
 images = None
 class PdfGUI:
     def __init__(self, master):
@@ -74,14 +74,10 @@ class PdfGUI:
         self.canvas.pack(side=LEFT, fill=BOTH, expand=True)
         self.display_page(0, pdf_file)
 
-
-
-
+    # Takes a PIL Image and displays it on the canvas
     def load_image(self, image):
         image.thumbnail((400, 400))  # Resize if necessary
-
         self.page_image = ImageTk.PhotoImage(image)
-
         self.canvas.create_image(427, 240, image=self.page_image, anchor = CENTER)
     
     ### TO-DO: Add other necessary functions needed for each menu bar command or task bar button we need. ###
@@ -99,12 +95,19 @@ class PdfGUI:
             images = pdf_file.page_images
             current_page = 1
             self.display_page(current_page - 1, pdf_file)
+            self.update_page_label()
 
     # Displays a single page to the GUI.
     # Updates page label and zoom based on whether the zoom buttons and previous page or next_page button is used.
     def display_page(self, page_number, pdf_file):
+        global current_page, total_pages, zoom_level
+        current_page = page_number + 1
+        self.update_page_label()
+
         image = pdf_file.getPDFImage(page_number)
         self.load_image(image)
+        
+
     
     def previous_page():
         pass
@@ -122,6 +125,7 @@ class PdfGUI:
         pass
     
     def update_page_label(self):
+        print("updated")
         self.page_label.config(text=f"Page {current_page} of {total_pages}")
         self.zoom_label.config(text=f"Zoom: {int(zoom_level * 100)}%")
     ### END OF TO-DO. ###
