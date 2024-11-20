@@ -70,9 +70,9 @@ class PdfGUI:
         ### END OF TO-DO. ###
         
         # Canvas creation to display PDF document pages.
-        self.canvas = Canvas(self.master, width=854, height=480, bg="white")
+        self.canvas = Canvas(self.master, width=854, height=480, bg="gainsboro")
         self.canvas.pack(side=LEFT, fill=BOTH, expand=True)
-        self.display_page(0, pdf_file)
+        self.display_page(0)
 
     # Takes a PIL Image and displays it on the canvas
     def load_image(self, image):
@@ -94,13 +94,12 @@ class PdfGUI:
             total_pages = pdf_file.num_pages
             images = pdf_file.page_images
             current_page = 1
-            self.display_page(current_page - 1, pdf_file)
-            self.update_page_label()
+            self.display_page(current_page - 1)
 
     # Displays a single page to the GUI.
     # Updates page label and zoom based on whether the zoom buttons and previous page or next_page button is used.
-    def display_page(self, page_number, pdf_file):
-        global current_page, total_pages, zoom_level
+    def display_page(self, page_number):
+        global current_page, total_pages, zoom_level, pdf_file
         current_page = page_number + 1
         self.update_page_label()
 
