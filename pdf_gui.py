@@ -70,7 +70,7 @@ class PdfGUI:
         ### END OF TO-DO. ###
         
         # Canvas creation to display PDF document pages.
-        self.canvas = Canvas(self.master, width=854, height=480, bg="white")
+        self.canvas = Canvas(self.master, width=854, height=480, bg="gainsboro")
         self.canvas.pack(side=LEFT, fill=BOTH, expand=True)
         self.display_page(0)
 
