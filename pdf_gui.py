@@ -54,10 +54,10 @@ class PdfGUI:
         self.next_button = Button(self.taskbar, text = ">>", command = None)
         self.next_button.pack(side=LEFT, padx=2, pady=2)
     
-        self.zoom_in_button = Button(self.taskbar, text = "+", command = None)
+        self.zoom_in_button = Button(self.taskbar, text = "+", command = self.zoom_in)
         self.zoom_in_button.pack(side=RIGHT, padx=2, pady=2)  
         
-        self.zoom_out_button = Button(self.taskbar, text = "-", command = None)
+        self.zoom_out_button = Button(self.taskbar, text = "-", command = self.zoom_out)
         self.zoom_out_button.pack(side=RIGHT, padx=2, pady=2)  
         
         self.page_label = Label(self.taskbar, text=f"Page {current_page} of {total_pages}")
@@ -117,12 +117,29 @@ class PdfGUI:
     def jump_to_page():
         pass
     
-    def zoom_in():
-        pass
-    
-    def zoom_out():
-        pass
-    
+    def zoom_in(self):
+        global zoom_level
+        if(zoom_level<2.0):
+            zoom_level+=.1
+        self.zoom()
+
+    def zoom_out(self):
+        global zoom_level
+        if(zoom_level>.11):
+            zoom_level-=.1
+        self.zoom()
+        
+    def zoom(self):
+        global zoom_level,pdf_file,current_page
+        if (zoom_level>.10):
+            print("zoom level: ",zoom_level)
+            image = pdf_file.getPDFImage(current_page-1)
+            res=image.resize((int(400*zoom_level),int(400*zoom_level)))
+            self.page_image = ImageTk.PhotoImage(res)
+            self.canvas.create_image(427, 240, image=self.page_image, anchor = CENTER)
+            self.update_page_label()
+        else:
+            pass    
     def update_page_label(self):
         print("updated")
         self.page_label.config(text=f"Page {current_page} of {total_pages}")
