@@ -119,13 +119,13 @@ class PdfGUI:
     
     def zoom_in(self):
         global zoom_level
-        if(zoom_level<2.0):
+        if(zoom_level<2.0):#max is 200%
             zoom_level+=.1
         self.zoom()
 
     def zoom_out(self):
         global zoom_level
-        if(zoom_level>.11):
+        if(zoom_level>.11):#max is 10%
             zoom_level-=.1
         self.zoom()
         
@@ -133,9 +133,10 @@ class PdfGUI:
         global zoom_level,pdf_file,current_page
         if (zoom_level>.10):
             print("zoom level: ",zoom_level)
+            #gets and resizes the image
             image = pdf_file.getPDFImage(current_page-1)
             res=image.resize((int(400*zoom_level),int(400*zoom_level)))
-            self.page_image = ImageTk.PhotoImage(res)
+            self.page_image = ImageTk.PhotoImage(res)#uses resized image
             self.canvas.create_image(427, 240, image=self.page_image, anchor = CENTER)
             self.update_page_label()
         else:
