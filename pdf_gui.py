@@ -54,10 +54,10 @@ class PdfGUI:
         self.next_button = Button(self.taskbar, text = ">>", command = None)
         self.next_button.pack(side=LEFT, padx=2, pady=2)
     
-        self.zoom_in_button = Button(self.taskbar, text = "+", command = None)
+        self.zoom_in_button = Button(self.taskbar, text = "+", command = self.zoom_in)
         self.zoom_in_button.pack(side=RIGHT, padx=2, pady=2)  
         
-        self.zoom_out_button = Button(self.taskbar, text = "-", command = None)
+        self.zoom_out_button = Button(self.taskbar, text = "-", command = self.zoom_out)
         self.zoom_out_button.pack(side=RIGHT, padx=2, pady=2)  
         
         self.page_label = Label(self.taskbar, text=f"Page {current_page} of {total_pages}")
@@ -76,8 +76,10 @@ class PdfGUI:
 
     # Takes a PIL Image and displays it on the canvas
     def load_image(self, image):
-        image.thumbnail((400, 400))  # Resize if necessary
-        self.page_image = ImageTk.PhotoImage(image)
+        global zoom_level
+        image.thumbnail((400, 400))
+        resized_img = image.resize((int(image.width * zoom_level), int(image.height * zoom_level)))  # Resize if necessary
+        self.page_image = ImageTk.PhotoImage(resized_img)
         self.canvas.create_image(427, 240, image=self.page_image, anchor = CENTER)
     
     ### TO-DO: Add other necessary functions needed for each menu bar command or task bar button we need. ###
@@ -101,11 +103,11 @@ class PdfGUI:
     def display_page(self, page_number):
         global current_page, total_pages, zoom_level, pdf_file
         current_page = page_number + 1
-        self.update_page_label()
-
         image = pdf_file.getPDFImage(page_number)
         self.load_image(image)
-        
+        self.update_page_label()   
+
+     
 
     
     def previous_page():
@@ -117,12 +119,20 @@ class PdfGUI:
     def jump_to_page():
         pass
     
-    def zoom_in():
-        pass
-    
-    def zoom_out():
-        pass
-    
+    def zoom_in(self):
+        global zoom_level, current_page
+        if(zoom_level<2.0):#max is 200%
+            zoom_level+=.1
+        self.display_page(current_page - 1)
+        # self.zoom()
+
+    def zoom_out(self):
+        global zoom_level, current_page
+        if(zoom_level>.11):#max is 10%
+            zoom_level-=.1
+        self.display_page(current_page - 1)
+        # self.zoom()
+
     def update_page_label(self):
         print("updated")
         self.page_label.config(text=f"Page {current_page} of {total_pages}")
@@ -131,7 +141,7 @@ class PdfGUI:
 
 
 # Root window and mainloop to keep the window open.
-if __name__ == "__main__":
-    app_window = Tk()
-    application = PdfGUI(app_window)
-    app_window.mainloop()
+
+app_window = Tk()
+application = PdfGUI(app_window)
+app_window.mainloop()
