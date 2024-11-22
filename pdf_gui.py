@@ -133,20 +133,6 @@ class PdfGUI:
         self.display_page(current_page - 1)
         # self.zoom()
 
-    '''        
-    def zoom(self):
-        global zoom_level,pdf_file,current_page
-        if (zoom_level>.10):
-            print("zoom level: ",zoom_level)
-            #gets and resizes the image
-            image = pdf_file.getPDFImage(current_page-1)
-            res=image.resize((int(400*zoom_level),int(400*zoom_level)))
-            self.page_image = ImageTk.PhotoImage(res)#uses resized image
-            self.canvas.create_image(427, 240, image=self.page_image, anchor = CENTER)
-            self.update_page_label()
-        else:
-            pass
-    '''  
     def update_page_label(self):
         print("updated")
         self.page_label.config(text=f"Page {current_page} of {total_pages}")
