@@ -142,14 +142,12 @@ class PdfGUI:
         if(zoom_level<2.0):#max is 200%
             zoom_level+=.1
         self.display_page(current_page - 1)
-        # self.zoom()
 
     def zoom_out(self):
         global zoom_level, current_page
         if(zoom_level>.11):#max is 10%
             zoom_level-=.1
         self.display_page(current_page - 1)
-        # self.zoom()
 
     def update_page_label(self):
         self.page_label.config(text=f"Page {current_page} of {total_pages}")
