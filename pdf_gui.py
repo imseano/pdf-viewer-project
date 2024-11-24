@@ -48,10 +48,10 @@ class PdfGUI:
         
         # Task bar buttons
         ### TO-DO: Add the appropriate commands to the task bar buttons. ###
-        self.previous_button = Button(self.taskbar, text = "<<", command = None)
+        self.previous_button = Button(self.taskbar, text = "<<", command = self.previous_page)
         self.previous_button.pack(side=LEFT, padx=2, pady=2)
         
-        self.next_button = Button(self.taskbar, text = ">>", command = None)
+        self.next_button = Button(self.taskbar, text = ">>", command = self.next_page)
         self.next_button.pack(side=LEFT, padx=2, pady=2)
     
         self.zoom_in_button = Button(self.taskbar, text = "+", command = self.zoom_in)
@@ -110,11 +110,17 @@ class PdfGUI:
      
 
     
-    def previous_page():
-        pass
+    def previous_page(self):
+        global current_page, total_pages
+        if current_page > 1:
+            current_page -= 1
+            self.display_page(current_page - 1)
     
-    def next_page():
-        pass
+    def next_page(self):
+        global current_page, total_pages
+        if current_page < total_pages:
+            current_page += 1
+            self.display_page(current_page - 1)
     
     def jump_to_page():
         pass
