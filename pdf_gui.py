@@ -69,18 +69,33 @@ class PdfGUI:
         # Comment: More task buttons can be added later.
         ### END OF TO-DO. ###
         
-        # Canvas creation to display PDF document pages.
-        self.canvas = Canvas(self.master, width=854, height=480, bg="gainsboro")
+        # Scrollbar
+        self.x_scrollbar = Scrollbar(self.master, orient = HORIZONTAL)
+        self.x_scrollbar.pack(side = BOTTOM, fill = X)
+        self.y_scrollbar = Scrollbar(self.master, orient = VERTICAL)
+        self.y_scrollbar.pack(side = RIGHT, fill = Y)       
+        
+        # Canvas creation to display PDF document pages with scrollbars.
+        self.canvas = Canvas(self.master, width = 854, height = 480, bg="gainsboro")
         self.canvas.pack(side=LEFT, fill=BOTH, expand=True)
+        self.canvas.config(xscrollcommand = self.x_scrollbar.set, yscrollcommand = self.y_scrollbar.set)
+        self.x_scrollbar.config(command = self.canvas.xview)
+        self.y_scrollbar.config(command = self.canvas.yview)
+        
         self.display_page(0)
 
     # Takes a PIL Image and displays it on the canvas
     def load_image(self, image):
         global zoom_level
         image.thumbnail((400, 400))
-        resized_img = image.resize((int(image.width * zoom_level), int(image.height * zoom_level)))  # Resize if necessary
+        resized_img = image.resize((int(image.width * zoom_level), int(image.height * zoom_level)),
+                                   Image.Resampling.LANCZOS)  # Resize if necessary
+        
         self.page_image = ImageTk.PhotoImage(resized_img)
         self.canvas.create_image(427, 240, image=self.page_image, anchor = CENTER)
+        self.canvas.config(scrollregion = self.canvas.bbox(ALL))
+        self.canvas.config(width = self.page_image.width(), height = self.page_image.height())
+        
     
     ### TO-DO: Add other necessary functions needed for each menu bar command or task bar button we need. ###
     # Note: Place holder functions have already been created. You just need to add the code that will get the job done.
@@ -106,10 +121,7 @@ class PdfGUI:
         image = pdf_file.getPDFImage(page_number)
         self.load_image(image)
         self.update_page_label()   
-
-     
-
-    
+ 
     def previous_page(self):
         global current_page, total_pages
         if current_page > 1:
@@ -140,14 +152,13 @@ class PdfGUI:
         # self.zoom()
 
     def update_page_label(self):
-        print("updated")
         self.page_label.config(text=f"Page {current_page} of {total_pages}")
         self.zoom_label.config(text=f"Zoom: {int(zoom_level * 100)}%")
     ### END OF TO-DO. ###
 
 
 # Root window and mainloop to keep the window open.
-
-app_window = Tk()
-application = PdfGUI(app_window)
-app_window.mainloop()
+if __name__ == "__main__":
+    app_window = Tk()
+    application = PdfGUI(app_window)
+    app_window.mainloop()
