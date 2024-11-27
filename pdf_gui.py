@@ -9,7 +9,7 @@ pdf_file = PdfViewer("examples/Example-1.pdf")
 current_page = 1
 total_pages = pdf_file.num_pages
 zoom_level = 1.0
-images = None
+image = None
 class PdfGUI:
     def __init__(self, master):
         
@@ -76,25 +76,43 @@ class PdfGUI:
         self.y_scrollbar.pack(side = RIGHT, fill = Y)       
         
         # Canvas creation to display PDF document pages with scrollbars.
-        self.canvas = Canvas(self.master, width = 854, height = 480, bg="gainsboro")
-        self.canvas.pack(side=LEFT, fill=BOTH, expand=True)
+        self.canvas = Canvas(self.master, bg="gainsboro")
+        self.canvas.pack(fill=BOTH, expand=True)
         self.canvas.config(xscrollcommand = self.x_scrollbar.set, yscrollcommand = self.y_scrollbar.set)
         self.x_scrollbar.config(command = self.canvas.xview)
         self.y_scrollbar.config(command = self.canvas.yview)
+        
+        # Bind the resize event to the canvas.
+        self.canvas.bind("<Configure>", self.on_resize)
         
         self.display_page(0)
 
     # Takes a PIL Image and displays it on the canvas
     def load_image(self, image):
-        global zoom_level
+        global zoom_level, thumbnail
+        # If there is no image, simply return nothing.
+        if image is None:
+            return
+        
+        # Force the canvas to update to get the correct information for displaying the page.
+        self.canvas.update_idletasks()
+        
+        # Set the page image size based on the thumbnail dimensions and zoom level.
         image.thumbnail((400, 400))
         resized_img = image.resize((int(image.width * zoom_level), int(image.height * zoom_level)),
                                    Image.Resampling.LANCZOS)  # Resize if necessary
-        
         self.page_image = ImageTk.PhotoImage(resized_img)
-        self.canvas.create_image(427, 240, image=self.page_image, anchor = CENTER)
+        
+        # Get canvas width and height info to properly display the page in the center of the canvas.
+        canvas_width = self.canvas.winfo_width()
+        canvas_height = self.canvas.winfo_height()
+        
+        # Clear the canvas before displaying the image.
+        self.canvas.delete(ALL)
+        
+        # Display the image at the center (based on the coordinates) and update the canvas region to be scrollable.
+        self.canvas.create_image(int(canvas_width/2), int(canvas_height/2), image=self.page_image, anchor = CENTER)
         self.canvas.config(scrollregion = self.canvas.bbox(ALL))
-        self.canvas.config(width = self.page_image.width(), height = self.page_image.height())
         
     
     ### TO-DO: Add other necessary functions needed for each menu bar command or task bar button we need. ###
@@ -102,21 +120,20 @@ class PdfGUI:
     # Open files with a prompt that allows the user to select the PDF file they wish to open.
     def open_file(self):
         # Redundant code that helps ensure that the variables used here are global.
-        global current_page, total_pages, pdf_file, images
+        global current_page, total_pages, pdf_file
         filepath = filedialog.askopenfilename(initialdir=os.getcwd(), title="Select a PDF file",
                                               filetypes=(("PDF files", "*.pdf"), ("All Files", "*.*")))
         
         if filepath:
             pdf_file = PdfViewer(filepath)
             total_pages = pdf_file.num_pages
-            images = pdf_file.page_images
             current_page = 1
             self.display_page(current_page - 1)
 
     # Displays a single page to the GUI.
     # Updates page label and zoom based on whether the zoom buttons and previous page or next_page button is used.
     def display_page(self, page_number):
-        global current_page, total_pages, zoom_level, pdf_file
+        global current_page, total_pages, zoom_level, pdf_file, image
         current_page = page_number + 1
         image = pdf_file.getPDFImage(page_number)
         self.load_image(image)
@@ -152,6 +169,11 @@ class PdfGUI:
     def update_page_label(self):
         self.page_label.config(text=f"Page {current_page} of {total_pages}")
         self.zoom_label.config(text=f"Zoom: {int(zoom_level * 100)}%")
+    
+    # Function to reload image upon window or canvas resize.
+    def on_resize(self, event):
+        self.load_image(image)
+   
     ### END OF TO-DO. ###
 
 
