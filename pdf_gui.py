@@ -86,7 +86,7 @@ class PdfGUI:
 
     # Takes a PIL Image and displays it on the canvas
     def load_image(self, image):
-        global zoom_level, thumbnail
+        global zoom_level
         # If there is no image, simply return nothing.
         if image is None:
             return
