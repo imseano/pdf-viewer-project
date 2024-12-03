@@ -12,7 +12,7 @@ zoom_level = 1.0
 image = None
 class PdfGUI:
     def __init__(self, master):
-        
+
         # Master window
         self.master = master
         self.master.title('Basic PDF Viewer')
@@ -20,71 +20,68 @@ class PdfGUI:
 
         # Menu bar creation
         self.menu_bar = Menu(self.master)
-        
+
         # File menu commands
         self.file_menu = Menu(self.menu_bar, tearoff = 0)
         self.menu_bar.add_cascade(label = 'File', menu = self.file_menu)
-        
-        ### TO-DO: Add command for the Open File command in the file menu. ###
+
         self.file_menu.add_command(label = 'Open File', command = self.open_file)
-        ### END OF TO-DO. ###
         self.file_menu.add_separator()
         self.file_menu.add_command(label = 'Exit', command = self.master.destroy)
-        
+
         # Help menu commands
         self.help_menu = Menu(self.menu_bar, tearoff = 0)
         self.menu_bar.add_cascade(label = 'Help', menu = self.help_menu)
-        ### TO-DO: Add commands for the 'Help' and 'About' menu commands in the help menu. ###
         self.help_menu.add_command(label = 'Help', command = None)
         self.help_menu.add_command(label = 'About', command = None)
-        ### END OF TO-DO. ###
-        
+
+
         # Configure and display the menu bar.
         self.master.config(menu = self.menu_bar)
-        
+
         # Task bar creation
         self.taskbar = Frame(self.master, bg = "lightgrey", height = 30)
         self.taskbar.pack(side=TOP, fill=X)
-        
+
         # Task bar buttons
         ### TO-DO: Add the appropriate commands to the task bar buttons. ###
         self.previous_button = Button(self.taskbar, text = "<<", command = self.previous_page)
         self.previous_button.pack(side=LEFT, padx=2, pady=2)
-        
+
         self.next_button = Button(self.taskbar, text = ">>", command = self.next_page)
         self.next_button.pack(side=LEFT, padx=2, pady=2)
-    
+
         self.zoom_in_button = Button(self.taskbar, text = "+", command = self.zoom_in)
         self.zoom_in_button.pack(side=RIGHT, padx=2, pady=2)  
-        
+
         self.zoom_out_button = Button(self.taskbar, text = "-", command = self.zoom_out)
         self.zoom_out_button.pack(side=RIGHT, padx=2, pady=2)  
-        
+
         self.page_label = Label(self.taskbar, text=f"Page {current_page} of {total_pages}")
         self.page_label.pack(side=LEFT, padx=2, pady=2)
-        
+
         self.zoom_label = Label(self.taskbar, text=f"Zoom: {int(zoom_level * 100)}%")
         self.zoom_label.pack(side=RIGHT, padx=2, pady=2)
-        
+
         # Comment: More task buttons can be added later.
         ### END OF TO-DO. ###
-        
+
         # Scrollbar
         self.x_scrollbar = Scrollbar(self.master, orient = HORIZONTAL)
         self.x_scrollbar.pack(side = BOTTOM, fill = X)
         self.y_scrollbar = Scrollbar(self.master, orient = VERTICAL)
         self.y_scrollbar.pack(side = RIGHT, fill = Y)       
-        
+
         # Canvas creation to display PDF document pages with scrollbars.
         self.canvas = Canvas(self.master, bg="gainsboro")
         self.canvas.pack(fill=BOTH, expand=True)
         self.canvas.config(xscrollcommand = self.x_scrollbar.set, yscrollcommand = self.y_scrollbar.set)
         self.x_scrollbar.config(command = self.canvas.xview)
         self.y_scrollbar.config(command = self.canvas.yview)
-        
+
         # Bind the resize event to the canvas.
         self.canvas.bind("<Configure>", self.on_resize)
-        
+
         self.display_page(0)
 
     # Takes a PIL Image and displays it on the canvas
@@ -93,30 +90,28 @@ class PdfGUI:
         # If there is no image, simply return nothing.
         if image is None:
             return
-        
+
         # Force the canvas to update to get the correct information for displaying the page.
         self.canvas.update_idletasks()
-        
+
         # Set the page image size based on the thumbnail dimensions and zoom level.
         image.thumbnail((400, 400))
         resized_img = image.resize((int(image.width * zoom_level), int(image.height * zoom_level)),
                                    Image.Resampling.LANCZOS)  # Resize if necessary
         self.page_image = ImageTk.PhotoImage(resized_img)
-        
+
         # Get canvas width and height info to properly display the page in the center of the canvas.
         canvas_width = self.canvas.winfo_width()
         canvas_height = self.canvas.winfo_height()
-        
+
         # Clear the canvas before displaying the image.
         self.canvas.delete(ALL)
-        
+
         # Display the image at the center (based on the coordinates) and update the canvas region to be scrollable.
         self.canvas.create_image(int(canvas_width/2), int(canvas_height/2), image=self.page_image, anchor = CENTER)
         self.canvas.config(scrollregion = self.canvas.bbox(ALL))
-        
     
-    ### TO-DO: Add other necessary functions needed for each menu bar command or task bar button we need. ###
-    # Note: Place holder functions have already been created. You just need to add the code that will get the job done.
+
     # Open files with a prompt that allows the user to select the PDF file they wish to open.
     def open_file(self):
         # Redundant code that helps ensure that the variables used here are global.
@@ -138,28 +133,32 @@ class PdfGUI:
         image = pdf_file.getPDFImage(page_number)
         self.load_image(image)
         self.update_page_label()   
- 
+
+    # Command to go to the previous page.
     def previous_page(self):
         global current_page, total_pages
         if current_page > 1:
             current_page -= 1
             self.display_page(current_page - 1)
-    
+
+    # Command to go to the next page.
     def next_page(self):
         global current_page, total_pages
         if current_page < total_pages:
             current_page += 1
             self.display_page(current_page - 1)
-    
+
     def jump_to_page():
         pass
     
+    # Command to zoom in.
     def zoom_in(self):
         global zoom_level, current_page
         if(zoom_level<2.0):#max is 200%
             zoom_level+=.1
         self.display_page(current_page - 1)
 
+    # Command to zoom out.
     def zoom_out(self):
         global zoom_level, current_page
         if(zoom_level>.11):#max is 10%
@@ -173,7 +172,6 @@ class PdfGUI:
     # Function to reload image upon window or canvas resize.
     def on_resize(self, event):
         self.load_image(image)
-   
     ### END OF TO-DO. ###
 
 
