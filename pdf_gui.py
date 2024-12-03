@@ -5,7 +5,7 @@ from PIL import Image, ImageTk
 import os
 
 # Global variables used by the PdfGUI class.
-pdf_file = PdfViewer("examples/Example-1.pdf")
+pdf_file = PdfViewer("examples/Example-2.pdf")
 current_page = 1
 total_pages = pdf_file.num_pages
 zoom_level = 1.0
@@ -164,8 +164,18 @@ class PdfGUI:
             current_page += 1
             self.display_page(current_page - 1)
 
-    def jump_to_page():
-        pass
+    # Command to jump to a specific page.
+    def jump_to_page(self):
+        global current_page, total_pages
+
+        try:
+            current_page = int(self.page_entry.get())
+            if 1 <= current_page <= total_pages:
+                self.display_page(current_page - 1)
+        except ValueError:
+            pass
+        finally:
+            self.page_entry.delete(0, END)  # Clears entry box after input is taken.
     
     # Command to zoom in.
     def zoom_in(self):
