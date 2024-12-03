@@ -63,6 +63,22 @@ class PdfGUI:
         self.zoom_label = Label(self.taskbar, text=f"Zoom: {int(zoom_level * 100)}%")
         self.zoom_label.pack(side=RIGHT, padx=2, pady=2)
 
+        # Frame for jump to page controls, placed in the center of the taskbar.
+        self.jump_frame = Frame(self.taskbar)
+        self.jump_frame.pack(side = TOP, pady = 5)
+        self.jump_frame.place(relx = 0.5, rely = 0.5, anchor = CENTER)
+        
+        # Jump to Page Label
+        self.jump_to_label = Label(self.jump_frame, text = "Jump to Page:")
+        self.jump_to_label.pack(side = LEFT)
+        
+        # Page entry for the Jump to Page interface.
+        self.page_entry = Entry(self.jump_frame, width = 5)
+        self.page_entry.pack(side = LEFT)
+        
+        # Jump to Button
+        self.jump_to_button = Button(self.jump_frame, text = "Go", command = self.jump_to_page)
+        self.jump_to_button.pack(side = LEFT, padx=3, pady=3)
         # Comment: More task buttons can be added later.
         ### END OF TO-DO. ###
 
