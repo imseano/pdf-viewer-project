@@ -44,7 +44,6 @@ class PdfGUI:
         self.taskbar.pack(side=TOP, fill=X)
 
         # Task bar buttons
-        ### TO-DO: Add the appropriate commands to the task bar buttons. ###
         self.previous_button = Button(self.taskbar, text = "<<", command = self.previous_page)
         self.previous_button.pack(side=LEFT, padx=2, pady=2)
 
@@ -79,8 +78,6 @@ class PdfGUI:
         # Jump to Button
         self.jump_to_button = Button(self.jump_frame, text = "Go", command = self.jump_to_page)
         self.jump_to_button.pack(side = LEFT, padx=3, pady=3)
-        # Comment: More task buttons can be added later.
-        ### END OF TO-DO. ###
 
         # Scrollbar
         self.x_scrollbar = Scrollbar(self.master, orient = HORIZONTAL)
@@ -130,7 +127,6 @@ class PdfGUI:
 
     # Open files with a prompt that allows the user to select the PDF file they wish to open.
     def open_file(self):
-        # Redundant code that helps ensure that the variables used here are global.
         global current_page, total_pages, pdf_file
         filepath = filedialog.askopenfilename(initialdir=os.getcwd(), title="Select a PDF file",
                                               filetypes=(("PDF files", "*.pdf"), ("All Files", "*.*")))
@@ -198,7 +194,6 @@ class PdfGUI:
     # Function to reload image upon window or canvas resize.
     def on_resize(self, event):
         self.load_image(image)
-    ### END OF TO-DO. ###
 
 
 # Root window and mainloop to keep the window open.
