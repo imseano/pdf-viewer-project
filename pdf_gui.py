@@ -29,13 +29,6 @@ class PdfGUI:
         self.file_menu.add_separator()
         self.file_menu.add_command(label = 'Exit', command = self.master.destroy)
 
-        # Help menu commands
-        self.help_menu = Menu(self.menu_bar, tearoff = 0)
-        self.menu_bar.add_cascade(label = 'Help', menu = self.help_menu)
-        self.help_menu.add_command(label = 'Help', command = None)
-        self.help_menu.add_command(label = 'About', command = None)
-
-
         # Configure and display the menu bar.
         self.master.config(menu = self.menu_bar)
 
