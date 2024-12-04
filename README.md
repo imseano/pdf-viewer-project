@@ -3,9 +3,9 @@
 A basic PDF viewer created using Python.
 
 ### Authors
-Sean Patrick Oreta<br/>
-Eric Thang<br/>
-Richard Trinh
+Sean Patrick Oreta - @imseano<br/>
+Eric Thang - @EricThang<br/>
+Richard Trinh - @retrinh195
 
 ## Version
 Version 1.0<br/>
