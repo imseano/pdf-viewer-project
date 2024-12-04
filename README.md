@@ -7,7 +7,7 @@ A basic PDF viewer created using Python.
 + Eric Thang
 + Richard Trinh
 
-### Version
+## Version
 Version 1.0<br/>
 *Uses Python 3.10 or newer*
 
