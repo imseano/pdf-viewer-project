@@ -5,9 +5,9 @@ from PIL import Image, ImageTk
 import os
 
 # Global variables used by the PdfGUI class.
-pdf_file = PdfViewer("examples/Example-2.pdf")
-current_page = 1
-total_pages = pdf_file.num_pages
+pdf_file = None
+current_page = 0
+total_pages = 0
 zoom_level = 1.0
 image = None
 class PdfGUI:
@@ -95,7 +95,6 @@ class PdfGUI:
         # Bind the resize event to the canvas.
         self.canvas.bind("<Configure>", self.on_resize)
 
-        self.display_page(0)
 
     # Takes a PIL Image and displays it on the canvas
     def load_image(self, image):
