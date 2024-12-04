@@ -3,9 +3,9 @@
 A basic PDF viewer created using Python.
 
 ### Authors
-+ Sean Patrick Oreta
-+ Eric Thang
-+ Richard Trinh
+Sean Patrick Oreta<br/>
+Eric Thang<br/>
+Richard Trinh
 
 ## Version
 Version 1.0<br/>
@@ -71,10 +71,10 @@ update_page_label(): Updates information displayed about the current page number
 on_resize() -- Makes sure that the image stays in center of the canvas upon resizing the window.
 
 ##### Dependencies
-+ os
-+ PIL
-+ tkinter
-+ viewer via PDFViewer class
+os<br/>
+PIL<br/>
+tkinter<br/>
+viewer via PDFViewer class
 
 ### PDF Viewer Backend - viewer.py
 The file used to load PDF files and get relevant information for the GUI. This file may be changed if more features are to be added regarding PDF files.
@@ -88,5 +88,5 @@ getPDFImage(); // Returns an image of the specified page index in the PDF. This 
 
 
 ##### Dependencies
-+ pdf2image
-+ pypdf
+pdf2image<br/>
+pypdf
