@@ -47,7 +47,7 @@ The file is used to create the GUI for the PDF viewer. It can be used alone or a
 
 If more features are to be added to the PDF viewer, this will be the main file to edit.
 
-#### PdfGUI Class
+#### PdfGUI Class:
 __init__() -- Initializes all the elements (e.g., taskbar, buttons, etc.) that will be used in the GUI.
 
 load_image() -- Loads in an image of a page of the opened PDF file based on the zoom level that it is set at.
@@ -70,7 +70,7 @@ update_page_label(): Updates information displayed about the current page number
 
 on_resize() -- Makes sure that the image stays in center of the canvas upon resizing the window.
 
-###### Dependencies
+##### Dependencies
 + os
 + PIL
 + tkinter
@@ -79,7 +79,7 @@ on_resize() -- Makes sure that the image stays in center of the canvas upon resi
 ### PDF Viewer Backend - viewer.py
 The file used to load PDF files and get relevant information for the GUI. This file may be changed if more features are to be added regarding PDF files.
 
-#### PDFViewer Class
+#### PDFViewer Class:
 __init__(); // Initializes the PdfViewer with a filepath, loads the PDF, counts pages, gets the first page, and generates images for each page.
 
 openFile(); // Opens a new PDF file, handles errors if it cannot open, updates the page count, retrieves the first page, and generates images for each page.
@@ -87,6 +87,6 @@ openFile(); // Opens a new PDF file, handles errors if it cannot open, updates t
 getPDFImage(); // Returns an image of the specified page index in the PDF. This image is returned as an ImageFile, as defined by the Pillow library.
 
 
-###### Dependencies
+##### Dependencies
 + pdf2image
 + pypdf
