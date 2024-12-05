@@ -40,6 +40,8 @@ Version 1.0 Features:
 5. Run the pdf_gui.py file using Python 3.10 or later. *It is recommended to use the latest version of Python 3.*
     - If you are on Windows, run `python pdf_gui.py` to test the program.
     - If you are on Mac or Linux, either run `python pdf_gui.py`, `python3 pdf_gui.py`, or `python3.XX pdf_gui.py` where XX would be the version number that you are using (Example: `python3.12 pdf_gui.py`).
+        * How you run the file depends on the alias or symlink of the version of Python 3 you're using. </br>
+          *It is recommended to use `python3` or `python3.XX` if you have a system where different versions of Python are on the system.*
 
 From there, you can use the File Menu to open and display a PDF file to test the various buttons.
 
