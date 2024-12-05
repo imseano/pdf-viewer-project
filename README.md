@@ -70,11 +70,13 @@ update_page_label(): Updates information displayed about the current page number
 
 on_resize() -- Makes sure that the image stays in center of the canvas upon resizing the window.
 
-##### Dependencies
+#### Dependencies
 os<br/>
 PIL<br/>
 tkinter<br/>
 viewer via PDFViewer class
+
+-----------------------------------------------------
 
 ### PDF Viewer Backend - viewer.py
 The file used to load PDF files and get relevant information for the GUI. This file may be changed if more features are to be added regarding PDF files.
@@ -87,6 +89,6 @@ openFile(); // Opens a new PDF file, handles errors if it cannot open, updates t
 getPDFImage(); // Returns an image of the specified page index in the PDF. This image is returned as an ImageFile, as defined by the Pillow library.
 
 
-##### Dependencies
+#### Dependencies
 pdf2image<br/>
 pypdf
