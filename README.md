@@ -25,6 +25,15 @@ Version 1.0 Features:
     - Zoom Level Buttons
 + Horizontal and Vertical Scrollbars
 
+Features to be added in the future:
++ Multithreaded Performance
+    - Allows user to still use the GUI while PDF loading occurs for larger files.
++ Form Highlighting and saving highlighting
++ Form filling additions and saving additions
++ Drawing
++ Single page/Double Page Toggle Option
++ Dark Mode
+
 -----------------------------------------------------
 
 ## How to Test the Program
