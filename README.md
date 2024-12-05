@@ -25,6 +25,8 @@ Version 1.0 Features:
     - Zoom Level Buttons
 + Horizontal and Vertical Scrollbars
 
+-----------------------------------------------------
+
 ## How to Test the Program
 ---***Subject to change***---
 1. Download the files by clicking on Code ==> Download ZIP.
@@ -40,6 +42,8 @@ Version 1.0 Features:
     - If you are on Mac or Linux, either run `python pdf_gui.py`, `python3 pdf_gui.py`, or `python3.XX pdf_gui.py` where XX would be the version number that you are using (Example: `python3.12 pdf_gui.py`).
 
 From there, you can use the File Menu to open and display a PDF file to test the various buttons.
+
+-----------------------------------------------------
 
 ## Notes on Files used for the PDF Viewer
 ### PDF GUI - pdf_gui.py
