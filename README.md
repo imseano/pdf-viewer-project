@@ -26,7 +26,7 @@ Version 1.0 Features:
 + Horizontal and Vertical Scrollbars
 
 ## How to Test the Program
-***Subject to change***
+---***Subject to change***---
 1. Download the files by clicking on Code ==> Download ZIP.
 2. Extract the files.
 3. Go to the directory where the pdf_gui.py and viewer.py files are stored.
