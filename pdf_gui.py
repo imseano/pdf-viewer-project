@@ -67,6 +67,7 @@ class PdfGUI:
         # Page entry for the Jump to Page interface.
         self.page_entry = Entry(self.jump_frame, width = 5)
         self.page_entry.pack(side = LEFT)
+        self.page_entry.bind("<Return>", lambda event: self.jump_to_page()) # Binds Enter key to take in input as well.
         
         # Jump to Button
         self.jump_to_button = Button(self.jump_frame, text = "Go", command = self.jump_to_page)
@@ -100,7 +101,7 @@ class PdfGUI:
         self.canvas.update_idletasks()
 
         # Set the page image size based on the thumbnail dimensions and zoom level.
-        # image.thumbnail((400, 400)) # Remove comment if you want to resize original image to thumbnail.
+        image.thumbnail((800, 800))
         resized_img = image.resize((int(image.width * zoom_level), int(image.height * zoom_level)),
                                    Image.Resampling.LANCZOS)  # Resize if necessary
         self.page_image = ImageTk.PhotoImage(resized_img)
