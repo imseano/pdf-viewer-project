@@ -26,6 +26,7 @@ class PdfGUI:
         self.menu_bar.add_cascade(label = 'File', menu = self.file_menu)
 
         self.file_menu.add_command(label = 'Open File', command = self.open_file)
+        self.file_menu.add_command(label = 'Close File', command = self.close_file)
         self.file_menu.add_separator()
         self.file_menu.add_command(label = 'Exit', command = self.master.destroy)
 
@@ -67,6 +68,7 @@ class PdfGUI:
         # Page entry for the Jump to Page interface.
         self.page_entry = Entry(self.jump_frame, width = 5)
         self.page_entry.pack(side = LEFT)
+        self.page_entry.bind("<Return>", lambda event: self.jump_to_page()) # Binds Enter key to take in input as well.
         
         # Jump to Button
         self.jump_to_button = Button(self.jump_frame, text = "Go", command = self.jump_to_page)
@@ -129,6 +131,15 @@ class PdfGUI:
             current_page = 1
             self.display_page(current_page - 1)
 
+    def close_file(self):
+        global current_page, total_pages, pdf_file
+        if pdf_file is not None:
+            pdf_file = None
+            total_pages = 0
+            current_page = 0
+            self.update_page_label()
+            self.canvas.delete(ALL)
+    
     # Displays a single page to the GUI.
     # Updates page label and zoom based on whether the zoom buttons and previous page or next_page button is used.
     def display_page(self, page_number):
