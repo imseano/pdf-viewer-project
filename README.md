@@ -69,6 +69,8 @@ load_image() -- Loads in an image of a page of the opened PDF file based on the 
 
 open_file() -- Allows the user to choose a PDF file to open. It is initially set to the current working directory that the pdf_gui.py is in, but the user can navigate elsewhere if the PDF file they want to open is in another location.
 
+close_file() -- Allows the user to close the file. Essentially, it clears information on the PDF file details and removing the pages that can be displayed in the GUI so that we have a clean slate.
+
 display_page() -- Displays a page of the opened PDF file in the window. Displays the page based on the current page number and zoom level. Uses load_image() and update_page_label().
 
 previous_page() -- Goes to the previous page by decrementing the page number and using display_page().
