@@ -100,7 +100,7 @@ class PdfGUI:
         self.canvas.update_idletasks()
 
         # Set the page image size based on the thumbnail dimensions and zoom level.
-        image.thumbnail((400, 400))
+        # image.thumbnail((400, 400)) # Remove comment if you want to resize original image to thumbnail.
         resized_img = image.resize((int(image.width * zoom_level), int(image.height * zoom_level)),
                                    Image.Resampling.LANCZOS)  # Resize if necessary
         self.page_image = ImageTk.PhotoImage(resized_img)
