@@ -109,3 +109,12 @@ getPDFImage(); // Returns an image of the specified page index in the PDF. This 
 #### Dependencies
 pdf2image<br/>
 pypdf
+
+-----------------------------------------------------
+
+### Licenses used by Dependencies
+* tkinter - Python Software Foundation License
+* pypdf - BSD License
+* pdf2image - MIT License
+* PIL (Python Imaging Library) - MIT-CMU License
+* os - Python Software Foundation License
