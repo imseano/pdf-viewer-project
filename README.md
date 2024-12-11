@@ -42,10 +42,14 @@ Features to be added in the future:
 2. Extract the files.
 3. Go to the directory where the pdf_gui.py and viewer.py files are stored.
 4. Make sure to install the following dependencies using `pip` or another Python package installer:
-   - pypdf
+    - pypdf
        * Example: `pip install pypdf`
-   - pdf2image
+    - pdf2image
        * Example: `pip install pdf2image`
+       * *For Windows and Mac, you will need to install poppler for this library to work properly. Please refer to the [Github Link](https://github.com/Belval/pdf2image) for instructions on how to do this.*
+    - Pillow (*if your Linux machine cannot use PIL, PIL does not seem to work, or the recent code uses Pillow*)
+        * Example: `pip install pillow`
+
 5. Run the pdf_gui.py file using Python 3.10 or later. *It is recommended to use the latest version of Python 3.*
     - If you are on Windows, run `python pdf_gui.py` to test the program.
     - If you are on Mac or Linux, either run `python pdf_gui.py`, `python3 pdf_gui.py`, or `python3.XX pdf_gui.py` where XX would be the version number that you are using (Example: `python3.12 pdf_gui.py`).
