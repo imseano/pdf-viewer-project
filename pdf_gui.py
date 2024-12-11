@@ -131,6 +131,7 @@ class PdfGUI:
             current_page = 1
             self.display_page(current_page - 1)
 
+    # Removes information of the PDF file and removes the pages off the canvas.
     def close_file(self):
         global current_page, total_pages, pdf_file
         if pdf_file is not None:
